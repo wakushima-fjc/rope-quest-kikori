@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ロープ高所作業 1問1答RPGクエスト</title>
+    <!-- レトロ風フォントの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- 登録画面 -->
+        <div id="view-register" class="view hidden">
+            <h1>見習いきこりの登録</h1>
+            <div class="window">
+                <p>冒険者の名前と生年月日を教えてくれ。</p>
+                <input type="text" id="reg-name" placeholder="氏名">
+                <input type="date" id="reg-dob" placeholder="生年月日">
+                <button id="btn-register">登録する</button>
+            </div>
+        </div>
+
+        <!-- ホーム画面 -->
+        <div id="view-home" class="view hidden">
+            <h1>クエスト選択</h1>
+            <div class="player-info window">
+                <span id="home-player-name"></span>
+            </div>
+            <div class="chapters">
+                <!-- 第1章 -->
+                <div class="chapter-card window" data-chapter="1">
+                    <h2>第1章</h2>
+                    <p>樹上におけるロープ高所作業</p>
+                    <p class="progress">進捗: <span id="prog-c1">0</span>/50問</p>
+                    <button class="btn-daily" data-c="1">デイリークエスト (10問)</button>
+                    <button class="btn-boss hidden" data-c="1">ボスバトル (30問)</button>
+                </div>
+                <!-- 第2章 -->
+                <div class="chapter-card window" data-chapter="2">
+                    <h2>第2章</h2>
+                    <p>メインロープ等に関する知識</p>
+                    <p class="progress">進捗: <span id="prog-c2">0</span>/50問</p>
+                    <button class="btn-daily" data-c="2">デイリークエスト (10問)</button>
+                    <button class="btn-boss hidden" data-c="2">ボスバトル (30問)</button>
+                </div>
+                <!-- 第3章 -->
+                <div class="chapter-card window" data-chapter="3">
+                    <h2>第3章</h2>
+                    <p>労働災害の防止に関する知識</p>
+                    <p class="progress">進捗: <span id="prog-c3">0</span>/50問</p>
+                    <button class="btn-daily" data-c="3">デイリークエスト (10問)</button>
+                    <button class="btn-boss hidden" data-c="3">ボスバトル (30問)</button>
+                </div>
+            </div>
+            <button id="btn-reset" class="btn-small">データリセット</button>
+        </div>
+
+        <!-- クイズ画面 -->
+        <div id="view-quiz" class="view hidden">
+            <div class="battle-scene window">
+                <div class="status-bars">
+                    <div id="player-status" class="hidden">
+                        <p>プレイヤー HP</p>
+                        <div class="hp-bar"><div id="hp-player" class="hp-fill"></div></div>
+                    </div>
+                    <div id="enemy-status">
+                        <p id="enemy-name">木</p>
+                        <div class="hp-bar"><div id="hp-enemy" class="hp-fill"></div></div>
+                    </div>
+                </div>
+                <div class="visuals">
+                    <div id="kikori" class="sprite">🪓🧑‍🌾</div>
+                    <div id="tree" class="sprite">🌲</div>
+                </div>
+            </div>
+            <div class="quiz-ui window">
+                <div class="q-header">
+                    <span id="q-counter">Q 1/10</span>
+                </div>
+                <p id="q-text" class="q-text">問題文がここに入ります</p>
+                <div id="choices-container" class="choices">
+                    <!-- ボタンが動的に生成される -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 解説ダイアログ -->
+        <div id="modal-explanation" class="modal hidden">
+            <div class="modal-content window">
+                <h2 id="exp-result">正解！</h2>
+                <p id="exp-text">解説がここに入ります。</p>
+                <button id="btn-next-q">次へ進む</button>
+            </div>
+        </div>
+
+        <!-- リザルト画面 -->
+        <div id="view-result" class="view hidden">
+            <h1>リザルト</h1>
+            <div class="window">
+                <p id="result-message">クエストクリア！</p>
+                <p id="result-score">正解数: 8/10</p>
+                <button id="btn-finish-quiz">ホームへ戻る</button>
+                <button id="btn-show-cert" class="hidden">修了証を発行する</button>
+            </div>
+        </div>
+
+        <!-- 修了証画面 -->
+        <div id="view-cert" class="view hidden">
+            <h1>修了証</h1>
+            <div class="cert-container">
+                <canvas id="cert-canvas" width="800" height="600"></canvas>
+            </div>
+            <div class="window">
+                <button id="btn-download-cert">画像としてダウンロード</button>
+                <button id="btn-cert-home">ホームへ戻る</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
